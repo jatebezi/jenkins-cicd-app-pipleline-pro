@@ -1,33 +1,16 @@
 - name: Ansible Copy Local to Remote
-
-  hosts: "{{ hosts }}"
-
+  hosts: "{{hosts}}"
   vars:
-
     src_path: "{{ workspace_path }}/webapp/target/webapp.war"
-
     dest_path: "/var/lib/tomcat/webapps"
-
     config_file_src_path: "{{ hosts }}-config.yaml"
-
     config_file_dest_path: "/home"
-
   tasks:
-
-    - name: Ensure the Tomcat directory exists
-      become: true
-      file:
-        path: "/var/lib/tomcat/webapps"
-        state: directory
-        owner: ansadmin
-        group: ansadmin
-        mode: '0755'
-
-    - name: Copying file with playbook
+    - name: copying file with playbook
       become: true
       copy:
         src: "{{ src_path }}"
         dest: "{{ dest_path }}"
         owner: ansadmin
         group: ansadmin
-        mode: '0644'
+        mode: 0644
